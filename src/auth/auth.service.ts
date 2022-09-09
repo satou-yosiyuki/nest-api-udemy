@@ -20,7 +20,7 @@ export class AuthService {
       await this.prisma.user.create({
         data: {
           email: dto.email,
-          hashedPassword: hashed,
+          hashePassword: hashed,
         },
       });
       return {
@@ -42,7 +42,7 @@ export class AuthService {
       },
     });
     if (!user) throw new ForbiddenException('Email or password incorrenct');
-    const isValid = await bcrypt.compare(dto.password, user.hashedPassword);
+    const isValid = await bcrypt.compare(dto.password, user.hashePassword);
     return this.generateJwt(user.id, user.email);
   }
   async generateJwt(userId: number, email: string): Promise<Jwt> {
